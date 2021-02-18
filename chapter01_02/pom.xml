@@ -71,7 +71,41 @@
             <artifactId>quartz</artifactId>
             <version>2.3.2</version>
         </dependency>
-         <!-- 測試插件-->
+        <!-- EMAIL -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-mail</artifactId>
+        </dependency>
+        <!-- Mybatis插件-->
+        <dependency>
+            <groupId>org.mybatis.spring.boot</groupId>
+            <artifactId>mybatis-spring-boot-starter</artifactId>
+            <version>2.1.4</version>
+        </dependency>
+        <!-- ActiveMQ 插件-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-activemq</artifactId>
+        </dependency>
+
+        <!-- 重试插件-->
+        <dependency>
+            <groupId>org.springframework.retry</groupId>
+            <artifactId>spring-retry</artifactId>
+        </dependency>
+
+        <dependency>
+        <groupId>org.aspectj</groupId >
+        <artifactId>aspectjweaver</artifactId >
+        <version>1.6.11</version >
+        </dependency>
+        <!-- mongodb插件-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-mongodb</artifactId>
+            <!--<version></version>-->
+        </dependency>
+        <!-- 測試插件-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
@@ -92,6 +126,11 @@
                         </exclude>
                     </excludes>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>2.4.3</version>
             </plugin>
         </plugins>
     </build>

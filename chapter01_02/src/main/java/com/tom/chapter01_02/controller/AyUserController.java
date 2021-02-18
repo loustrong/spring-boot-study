@@ -1,5 +1,6 @@
 package com.tom.chapter01_02.controller;
 
+import com.tom.chapter01_02.error.BusinessException;
 import com.tom.chapter01_02.model.AyUser;
 import com.tom.chapter01_02.service.AyUserService;
 import org.springframework.stereotype.Controller;
@@ -26,4 +27,19 @@ public class AyUserController {
         model.addAttribute("users",ayUser);
         return "ayUser";
     }
+
+    @RequestMapping("/findAll")
+    public String findAll(Model model) {
+        List<AyUser> ayUser = ayUserService.findAll();
+        model.addAttribute("users",ayUser);
+        throw new BusinessException("业务异常");
+    }
+
+    @RequestMapping("/findByNameAndPasswordRetry")
+    public String findByNameAndPasswordRetry(Model model) {
+        AyUser ayUser = ayUserService.findByNameAndPasswordRetry("Tom1","1");
+        model.addAttribute("users", ayUser);
+        return "sucess";
+    }
+
 }

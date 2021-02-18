@@ -1,5 +1,7 @@
 package com.tom.chapter01_02.service.impl;
 
+import com.tom.chapter01_02.dao.AyUserDao;
+import com.tom.chapter01_02.error.BusinessException;
 import com.tom.chapter01_02.model.AyUser;
 import com.tom.chapter01_02.repository.AyUserRepository;
 import com.tom.chapter01_02.service.AyUserService;
@@ -10,6 +12,10 @@ import org.springframework.data.annotation.Reference;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.retry.annotation.Backoff;
+import org.springframework.retry.annotation.Retryable;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -107,6 +113,35 @@ public class AyUserServiceImpl implements AyUserService {
     public List<AyUser> findByIdIn(Collection<String> ids) {
         return ayUserRepository.findByIdIn(ids);
     }
-
+     // Mybatis
+     @Resource
+     private AyUserDao ayUserDao;
+    @Override
+    public AyUser findByNameAndPassword(String name, String password) {
+         return ayUserDao.findByNameAndPassword(name, password);
+    }
+    // 异步执行
+    @Override
+    @Async
+    public Future<List<AyUser>> findAsynAll() {
+        try{
+            System.out.println("开始做任务");
+            long start = System.currentTimeMillis();
+            List<AyUser> ayUserList = ayUserRepository.findAll();
+            long end = System.currentTimeMillis();
+            System.out.println("完成任务，耗时：" + (end - start) + "毫秒");
+            return new AsyncResult<List<AyUser>>(ayUserList) ;
+        }catch (Exception e){
+            logger.error("method [findAll] error",e);
+            return new AsyncResult<List<AyUser>>(null);
+        }
+    }
+    // 重试
+    @Override
+    @Retryable(value= {BusinessException.class},maxAttempts = 5,backoff = @Backoff(delay = 5000,multiplier = 2))
+    public AyUser findByNameAndPasswordRetry(String name, String password) {
+        System.out.println("[findByNameAndPasswordRetry] 方法失败重试了！");
+        throw new BusinessException();
+    }
 
 }

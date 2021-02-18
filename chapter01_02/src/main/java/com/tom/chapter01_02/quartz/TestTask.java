@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @Configurable
-@EnableScheduling
+//@EnableScheduling
 public class TestTask {
 
     //日志对象

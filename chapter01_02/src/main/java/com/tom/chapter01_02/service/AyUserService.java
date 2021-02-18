@@ -23,4 +23,11 @@ public interface AyUserService {
     List<AyUser> findByName(String name);
     List<AyUser> findByNameLike(String name);
     List<AyUser> findByIdIn(Collection<String> ids);
+
+    // Mybatis
+    AyUser findByNameAndPassword(String name, String password);
+    // 异步执行
+    Future<List<AyUser>> findAsynAll();
+    // 重试
+    AyUser findByNameAndPasswordRetry(String name, String password);
 }
