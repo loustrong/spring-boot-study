@@ -2,6 +2,7 @@
 <project version="4">
   <component name="Encoding" addBOMForNewFiles="with NO BOM">
     <file url="file://$PROJECT_DIR$" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ay-user-api" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/chapter01_02" charset="UTF-8" />
   </component>
 </project>

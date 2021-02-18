@@ -144,4 +144,8 @@ public class AyUserServiceImpl implements AyUserService {
         throw new BusinessException();
     }
 
+    @Override
+    public AyUser findByUserName(String name) {
+        return ayUserDao.findByUserName(name);
+    }
 }

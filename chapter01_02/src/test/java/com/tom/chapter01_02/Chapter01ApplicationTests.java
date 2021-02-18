@@ -3,8 +3,10 @@ package com.tom.chapter01_02;
 import com.tom.chapter01_02.mail.SendJunkMailService;
 import com.tom.chapter01_02.model.AyMood;
 import com.tom.chapter01_02.model.AyUser;
+import com.tom.chapter01_02.model.AyUserAttachmentRel;
 import com.tom.chapter01_02.mq.AyMoodProducer;
 import com.tom.chapter01_02.service.AyMoodService;
+import com.tom.chapter01_02.service.AyUserAttachmentRelService;
 import com.tom.chapter01_02.service.AyUserService;
 import org.apache.activemq.command.ActiveMQQueue;
 import org.apache.logging.log4j.LogManager;
@@ -278,6 +280,20 @@ class Chapter01ApplicationTests {
 //        }
 //    }
 
+
+
+    @Resource
+    private AyUserAttachmentRelService ayUserAttachmentRelService;
+
+    @Test
+    public void testMongoDB(){
+        AyUserAttachmentRel ayUserAttachmentRel = new AyUserAttachmentRel();
+        ayUserAttachmentRel.setId("1");
+        ayUserAttachmentRel.setUserId("1");
+        ayUserAttachmentRel.setFileName("个人简历.doc");
+        ayUserAttachmentRelService.save(ayUserAttachmentRel);
+        System.out.println("保存成功");
+    }
 
 
 }
